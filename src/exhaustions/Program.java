@@ -54,5 +54,36 @@ public class Program {
         public int calc(int a, int b);
     }
     
+        public static String readFromFile(File file) {
+        try {
+            Scanner scanner = new Scanner(file);
+            scanner.useDelimiter("\\Z");
+            
+            String string = scanner.next();
+            
+            scanner.close();
+            return string;
+        }
+        catch (Exception ex) {
+            return null;
+        }
+    }
+    
+    public static Boolean saveToFile(File file, Enumeration<String> enumeration) {
+        try {
+            FileWriter writer = new FileWriter(file);
+            
+            while (enumeration.hasMoreElements()) {
+                writer.write(enumeration.nextElement() + System.lineSeparator());
+            }
+            
+            writer.close();
+            return true;
+        }
+        catch (Exception ex) {
+            return false;
+        }
+    }
+    
    
 }

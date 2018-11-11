@@ -175,15 +175,28 @@ public class MainJFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_clearButtonActionPerformed
 
     private void fileInputButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_fileInputButtonActionPerformed
-        if (fileChooser.showOpenDialog(this) == JFileChooser.APPROVE_OPTION) {
+     if (fileChooser.showOpenDialog(this) == JFileChooser.APPROVE_OPTION) {
             File file = fileChooser.getSelectedFile();
+            String string = Program.readFromFile(file);
+            
+            if (string != null){
+                numbersTextField.setText(string);
+                log("Строка была считана из файла.");
+            }
+            else log("Не удалось считать строку.");
         }
+        else log("Массив не был считан из файла.");
     }//GEN-LAST:event_fileInputButtonActionPerformed
 
     private void saveButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_saveButtonActionPerformed
         if (fileChooser.showSaveDialog(this) == JFileChooser.APPROVE_OPTION) {
             File file = fileChooser.getSelectedFile();
+            
+            if (Program.saveToFile(file, listModel.elements()))
+                log("Журнал сохранен в файл.");
+            else log("Не удалось сохранить журнал в файл.");
         }
+        else log ("Журнал не был сохранен в файл.");
     }//GEN-LAST:event_saveButtonActionPerformed
 
     private void lockUI() {

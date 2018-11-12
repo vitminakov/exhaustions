@@ -85,5 +85,29 @@ public class Program {
         }
     }
     
+        public static int[] getRandomNumbers(int count) {
+        final int MIN = -100, MAX = 100;
+        
+        int[] array = new int[count];
+        Random rand = new Random(LocalTime.now().toNanoOfDay());
+        
+        for (int i = 0; i < count; i++) {
+            array[i] = Math.abs(rand.nextInt()) % (MAX - MIN) + MIN;
+        }
+        
+        return array;
+    }
+    
+    public static String numbersArrayToString(int[] array) {
+        String result = "";
+        
+        for (int i = 0; i < array.length; i++) {
+            result += array[i] + " ";
+        }
+        
+        return result;
+    }
+    
+    
    
 }

@@ -160,7 +160,8 @@ public class MainJFrame extends javax.swing.JFrame {
 
     private void randomButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_randomButtonActionPerformed
         int count = Integer.class.cast(countSpinner.getValue());
-        
+        int[] array = Program.getRandomNumbers(count);
+        numbersTextField.setText(Program.numbersArrayToString(array));
     }//GEN-LAST:event_randomButtonActionPerformed
 
     private void startButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_startButtonActionPerformed
@@ -188,6 +189,7 @@ public class MainJFrame extends javax.swing.JFrame {
         else log("Массив не был считан из файла.");
     }//GEN-LAST:event_fileInputButtonActionPerformed
 
+    
     private void saveButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_saveButtonActionPerformed
         if (fileChooser.showSaveDialog(this) == JFileChooser.APPROVE_OPTION) {
             File file = fileChooser.getSelectedFile();

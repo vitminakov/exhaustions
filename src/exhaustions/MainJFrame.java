@@ -161,13 +161,34 @@ public class MainJFrame extends javax.swing.JFrame {
     private void randomButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_randomButtonActionPerformed
         int count = Integer.class.cast(countSpinner.getValue());
         int[] array = Program.getRandomNumbers(count);
+        
         numbersTextField.setText(Program.numbersArrayToString(array));
     }//GEN-LAST:event_randomButtonActionPerformed
 
     private void startButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_startButtonActionPerformed
         lockUI();                                             
+        
         int count = Integer.class.cast(countSpinner.getValue());
         
+        String _amount = amountTextField.getText();
+        Program.ParseResult amount = Program.TryParseInteger(_amount);
+        if (!amount.Succeeded) {
+            log("Не удалось считать сумму");
+            
+            unlockUI();
+            return;
+        }
+        
+        String _numbers = numbersTextField.getText();
+        int[] numbers = Program.parseStringOfNumbers(_numbers, count);
+        if (numbers == null) {
+            log("Не удалось считать массив: проверьте количество чисел и корректность данных");
+            
+            unlockUI();
+            return;
+        }
+        
+        Program.doExhaustions(numbers, amount.Result, msg -> log(msg));
         unlockUI();
     }//GEN-LAST:event_startButtonActionPerformed
 
@@ -176,7 +197,7 @@ public class MainJFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_clearButtonActionPerformed
 
     private void fileInputButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_fileInputButtonActionPerformed
-     if (fileChooser.showOpenDialog(this) == JFileChooser.APPROVE_OPTION) {
+        if (fileChooser.showOpenDialog(this) == JFileChooser.APPROVE_OPTION) {
             File file = fileChooser.getSelectedFile();
             String string = Program.readFromFile(file);
             
@@ -189,7 +210,6 @@ public class MainJFrame extends javax.swing.JFrame {
         else log("Массив не был считан из файла.");
     }//GEN-LAST:event_fileInputButtonActionPerformed
 
-    
     private void saveButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_saveButtonActionPerformed
         if (fileChooser.showSaveDialog(this) == JFileChooser.APPROVE_OPTION) {
             File file = fileChooser.getSelectedFile();

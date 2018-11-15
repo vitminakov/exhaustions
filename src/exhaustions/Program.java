@@ -137,6 +137,55 @@ public class Program {
         return array;
     }
     
+       public static Operator[] makeFirstCombination(int count) {
+        Operator[] result = new Operator[count];
+        
+        for (int i = 0; i < count; i++)
+            result[i] = Operator.LOWEST;
+        
+        return result;
+    }
+    
+    public static Boolean goNextCombination(Operator[] opers) {
+        for (int i = opers.length - 1; i >= 0; i--) {
+            opers[i] = opers[i].getNext();
+            
+            if (opers[i] != Operator.LOWEST) return true;
+        }
+        return false;
+    }
+    
+    public static int calcCombination(int[] _numbers, Operator[] _opers) {        
+        ArrayList<Integer> numbers = new ArrayList<>();
+        for (Integer n : _numbers) numbers.add(n);
+        
+        ArrayList<Operator> opers = new ArrayList();
+        for (Operator op : _opers) opers.add(op);
+        
+        for (int prior = Operator.HIGHEST_PRIORITY;
+                prior >= Operator.LOWEST_PRIORITY; prior--)
+        {
+            for (int i = 0; i < opers.size(); ) {
+                Operator oper = opers.get(i);
+                
+                if (oper.getPriority() == prior) {
+                    int left = numbers.get(i);
+                    int right = numbers.get(i + 1);
+                    
+                    int result = oper.getFunction().calc(left, right);
+                    
+                    numbers.set(i, result);
+                    numbers.remove(i + 1);
+                    
+                    opers.remove(i);
+                }
+                else i++;
+            }
+        }
+        
+        return numbers.get(0);
+    }
+    
     public static String numbersArrayToString(int[] array) {
         String result = "";
         

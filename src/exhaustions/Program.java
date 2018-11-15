@@ -9,7 +9,7 @@ import java.io.File;
 import java.io.FileWriter;
 
 public class Program {    
-public enum Operator {
+    public enum Operator {
         Add('+', 0, (a, b) -> Math.addExact(a, b)),
         Subtract('-', 0, (a, b) -> Math.subtractExact(a, b)),
         Multiply('*', 1, (a, b) -> Math.multiplyExact(a, b));
@@ -52,6 +52,9 @@ public enum Operator {
         public void log(String str);
     }
     
+    public interface CalcFunction {
+        public int calc(int a, int b);
+    }
     
     public static class ParseResult {
         public int Result;
@@ -71,13 +74,79 @@ public enum Operator {
         
         return result;
     }
-   
     
-    public interface CalcFunction {
-        public int calc(int a, int b);
+    public static int[] parseStringOfNumbers(String str, int count) {
+        String current = "";
+        int added = 0;
+        int[] array = new int[count];
+        
+        for (int i = 0; i < str.length(); i++) {
+            char c = str.charAt(i);
+            
+            if (c >= '0' && c <= '9' || c == '-') {
+                current += c;
+            }
+            
+            else if (c == ' ') {
+                if (current.compareTo("") != 0) {
+                    try {
+                        if (added >= count) return null;
+                    
+                        array[added] = Integer.parseInt(current);
+                    
+                        current = "";
+                        added++;
+                    }
+                    catch (Exception ex) {
+                        return null;
+                    }
+                }
+            }
+            
+            else return null;
+        }
+        
+        if (current.compareTo("") != 0) {
+            try {
+                if (added >= count) return null;
+                    
+                array[added] = Integer.parseInt(current);
+                    
+                current = "";
+                added++;
+            }
+            catch (Exception ex) {
+                return null;
+            }
+        }
+        
+        if (added != count) return null;
+        return array;
     }
     
-        public static String readFromFile(File file) {
+    public static int[] getRandomNumbers(int count) {
+        final int MIN = -100, MAX = 100;
+        
+        int[] array = new int[count];
+        Random rand = new Random(LocalTime.now().toNanoOfDay());
+        
+        for (int i = 0; i < count; i++) {
+            array[i] = Math.abs(rand.nextInt()) % (MAX - MIN) + MIN;
+        }
+        
+        return array;
+    }
+    
+    public static String numbersArrayToString(int[] array) {
+        String result = "";
+        
+        for (int i = 0; i < array.length; i++) {
+            result += array[i] + " ";
+        }
+        
+        return result;
+    }
+    public static String readFromFile(File file) {
         try {
             Scanner scanner = new Scanner(file);
             scanner.useDelimiter("\\Z");
@@ -107,30 +176,4 @@ public enum Operator {
             return false;
         }
     }
-    
-        public static int[] getRandomNumbers(int count) {
-        final int MIN = -100, MAX = 100;
-        
-        int[] array = new int[count];
-        Random rand = new Random(LocalTime.now().toNanoOfDay());
-        
-        for (int i = 0; i < count; i++) {
-            array[i] = Math.abs(rand.nextInt()) % (MAX - MIN) + MIN;
-        }
-        
-        return array;
-    }
-    
-    public static String numbersArrayToString(int[] array) {
-        String result = "";
-        
-        for (int i = 0; i < array.length; i++) {
-            result += array[i] + " ";
-        }
-        
-        return result;
-    }
-    
-    
-   
 }

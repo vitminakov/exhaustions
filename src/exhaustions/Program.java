@@ -9,7 +9,7 @@ import java.io.File;
 import java.io.FileWriter;
 
 public class Program {    
-    public enum Operator {
+public enum Operator {
         Add('+', 0, (a, b) -> Math.addExact(a, b)),
         Subtract('-', 0, (a, b) -> Math.subtractExact(a, b)),
         Multiply('*', 1, (a, b) -> Math.multiplyExact(a, b));
@@ -48,6 +48,29 @@ public class Program {
         }
     }
     
+    public interface LogAction {
+        public void log(String str);
+    }
+    
+    
+    public static class ParseResult {
+        public int Result;
+        public Boolean Succeeded;
+    }
+    
+    public static ParseResult TryParseInteger(String str) {
+        ParseResult result = new ParseResult();
+        
+        try {
+            result.Result = Integer.parseInt(str);
+            result.Succeeded = true;
+        }
+        catch (Exception ex) {
+            result.Succeeded = false;
+        }
+        
+        return result;
+    }
    
     
     public interface CalcFunction {

@@ -137,7 +137,39 @@ public class Program {
         return array;
     }
     
-       public static Operator[] makeFirstCombination(int count) {
+    public static String numbersArrayToString(int[] array) {
+        String result = "";
+        
+        for (int i = 0; i < array.length; i++) {
+            result += array[i] + " ";
+        }
+        
+        return result;
+    }
+    
+    public static void doExhaustions(int[] numbers, int amount, LogAction logger) {
+        Operator[] opers = makeFirstCombination(numbers.length - 1);
+        
+        do {
+            try {
+                int S = calcCombination(numbers, opers);
+                logCombination(numbers, opers, S, logger);
+            
+                if (S == amount) {
+                    logger.log("Комбинация найдена.");
+                    return;
+                }
+            }
+            catch (Exception ex) {
+                logger.log("Не удалось рассчитать: " +
+                    сombinationToString(numbers, opers));
+            }
+        } while (goNextCombination(opers));
+        
+        logger.log("Комбинация не обнаружена.");
+    }
+    
+    public static Operator[] makeFirstCombination(int count) {
         Operator[] result = new Operator[count];
         
         for (int i = 0; i < count; i++)
@@ -186,15 +218,28 @@ public class Program {
         return numbers.get(0);
     }
     
-    public static String numbersArrayToString(int[] array) {
-        String result = "";
+    public static String сombinationToString(int[] numbers, Operator[] opers) {
+        String message = "";
         
-        for (int i = 0; i < array.length; i++) {
-            result += array[i] + " ";
+        for (int i = 0; i < opers.length; i++) {
+            message += numbers[i] + " " + opers[i].getSymbol() + " ";
         }
+        message += numbers[numbers.length - 1];
         
-        return result;
+        return message;
     }
+    
+    public static void logCombination(int[] numbers, Operator[] opers, int S, LogAction logger) {
+        String message = "";
+        
+        for (int i = 0; i < opers.length; i++) {
+            message += numbers[i] + " " + opers[i].getSymbol() + " ";
+        }
+        message += numbers[numbers.length - 1] + " = " + S;
+        
+        logger.log(message);
+    }
+    
     public static String readFromFile(File file) {
         try {
             Scanner scanner = new Scanner(file);

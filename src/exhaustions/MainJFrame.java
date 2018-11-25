@@ -26,8 +26,6 @@ public class MainJFrame extends javax.swing.JFrame {
         fileChooser = new javax.swing.JFileChooser();
         jLabel1 = new javax.swing.JLabel();
         numbersTextField = new javax.swing.JTextField();
-        jLabel2 = new javax.swing.JLabel();
-        countSpinner = new javax.swing.JSpinner();
         randomButton = new javax.swing.JButton();
         fileInputButton = new javax.swing.JButton();
         jLabel3 = new javax.swing.JLabel();
@@ -35,7 +33,7 @@ public class MainJFrame extends javax.swing.JFrame {
         startButton = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         logList = new javax.swing.JList<>();
-        saveButton = new javax.swing.JButton();
+        saveAllButton = new javax.swing.JButton();
         clearButton = new javax.swing.JButton();
 
         fileChooser.setAcceptAllFileFilterUsed(false);
@@ -46,10 +44,6 @@ public class MainJFrame extends javax.swing.JFrame {
         setTitle("Переборы");
 
         jLabel1.setText("Ввод чисел:");
-
-        jLabel2.setText("Кол-во:");
-
-        countSpinner.setModel(new javax.swing.SpinnerNumberModel(2, 2, 10, 1));
 
         randomButton.setText("Случайный выбор");
         randomButton.addActionListener(new java.awt.event.ActionListener() {
@@ -78,10 +72,10 @@ public class MainJFrame extends javax.swing.JFrame {
         logList.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         jScrollPane1.setViewportView(logList);
 
-        saveButton.setText("Сохранить журнал в файл");
-        saveButton.addActionListener(new java.awt.event.ActionListener() {
+        saveAllButton.setText("Сохранить журнал...");
+        saveAllButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                saveButtonActionPerformed(evt);
+                saveAllButtonActionPerformed(evt);
             }
         });
 
@@ -101,31 +95,24 @@ public class MainJFrame extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(countSpinner, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(amountTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel2)
-                                .addGap(18, 18, 18)
-                                .addComponent(jLabel3)))
+                            .addComponent(jLabel3)
+                            .addComponent(amountTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(numbersTextField)
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(jLabel1)
-                                .addGap(0, 0, Short.MAX_VALUE))
-                            .addComponent(numbersTextField)))
+                                .addGap(0, 0, Short.MAX_VALUE))))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(randomButton, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(fileInputButton, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 142, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 188, Short.MAX_VALUE)
                         .addComponent(startButton))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(clearButton, javax.swing.GroupLayout.PREFERRED_SIZE, 167, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(saveButton))
+                        .addComponent(saveAllButton)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(clearButton, javax.swing.GroupLayout.PREFERRED_SIZE, 167, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING))
                 .addContainerGap())
         );
@@ -135,11 +122,9 @@ public class MainJFrame extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
-                    .addComponent(jLabel2)
                     .addComponent(jLabel3))
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(numbersTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(countSpinner, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(amountTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -150,7 +135,7 @@ public class MainJFrame extends javax.swing.JFrame {
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 230, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(saveButton)
+                    .addComponent(saveAllButton)
                     .addComponent(clearButton))
                 .addContainerGap())
         );
@@ -159,19 +144,18 @@ public class MainJFrame extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void randomButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_randomButtonActionPerformed
-        int count = Integer.class.cast(countSpinner.getValue());
-        int[] array = Program.getRandomNumbers(count);
+        int[] array = Utils.getRandomNumbers();
+        int amount = Utils.getRandomNumber();
         
-        numbersTextField.setText(Program.numbersArrayToString(array));
+        numbersTextField.setText(Utils.numbersArrayToString(array));
+        amountTextField.setText(Integer.toString(amount));
     }//GEN-LAST:event_randomButtonActionPerformed
 
     private void startButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_startButtonActionPerformed
-        lockUI();                                             
-        
-        int count = Integer.class.cast(countSpinner.getValue());
+        lockUI();
         
         String _amount = amountTextField.getText();
-        Program.ParseResult amount = Program.TryParseInteger(_amount);
+        Utils.ParseResult amount = Utils.tryParseInteger(_amount);
         if (!amount.Succeeded) {
             log("Не удалось считать сумму");
             
@@ -180,7 +164,7 @@ public class MainJFrame extends javax.swing.JFrame {
         }
         
         String _numbers = numbersTextField.getText();
-        int[] numbers = Program.parseStringOfNumbers(_numbers, count);
+        int[] numbers = Utils.parseStringOfNumbers(_numbers);
         if (numbers == null) {
             log("Не удалось считать массив: проверьте количество чисел и корректность данных");
             
@@ -188,7 +172,13 @@ public class MainJFrame extends javax.swing.JFrame {
             return;
         }
         
-        Program.doExhaustions(numbers, amount.Result, msg -> log(msg));
+        Program.doExhaustions(numbers, amount.Result, msg -> log(msg),
+                () -> {
+                    if (fileChooser.showSaveDialog(this) == JFileChooser.APPROVE_OPTION)
+                        return fileChooser.getSelectedFile();
+                    else return null;
+                });
+        
         unlockUI();
     }//GEN-LAST:event_startButtonActionPerformed
 
@@ -199,7 +189,7 @@ public class MainJFrame extends javax.swing.JFrame {
     private void fileInputButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_fileInputButtonActionPerformed
         if (fileChooser.showOpenDialog(this) == JFileChooser.APPROVE_OPTION) {
             File file = fileChooser.getSelectedFile();
-            String string = Program.readFromFile(file);
+            String string = Utils.readFromFile(file);
             
             if (string != null){
                 numbersTextField.setText(string);
@@ -210,36 +200,34 @@ public class MainJFrame extends javax.swing.JFrame {
         else log("Массив не был считан из файла.");
     }//GEN-LAST:event_fileInputButtonActionPerformed
 
-    private void saveButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_saveButtonActionPerformed
+    private void saveAllButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_saveAllButtonActionPerformed
         if (fileChooser.showSaveDialog(this) == JFileChooser.APPROVE_OPTION) {
             File file = fileChooser.getSelectedFile();
             
-            if (Program.saveToFile(file, listModel.elements()))
+            if (Utils.saveStringsToFile(file, listModel.elements()))
                 log("Журнал сохранен в файл.");
             else log("Не удалось сохранить журнал в файл.");
         }
         else log ("Журнал не был сохранен в файл.");
-    }//GEN-LAST:event_saveButtonActionPerformed
+    }//GEN-LAST:event_saveAllButtonActionPerformed
 
     private void lockUI() {
-        countSpinner.setEnabled(false);
         amountTextField.setEnabled(false);
         numbersTextField.setEnabled(false);
         randomButton.setEnabled(false);
         fileInputButton.setEnabled(false);
         startButton.setEnabled(false);
-        saveButton.setEnabled(false);
+        saveAllButton.setEnabled(false);
         clearButton.setEnabled(false);
     }
     
     private void unlockUI() {
-        countSpinner.setEnabled(true);
         amountTextField.setEnabled(true);
         numbersTextField.setEnabled(true);
         randomButton.setEnabled(true);
         fileInputButton.setEnabled(true);
         startButton.setEnabled(true);
-        saveButton.setEnabled(true);
+        saveAllButton.setEnabled(true);
         clearButton.setEnabled(true);
     }
     
@@ -267,40 +255,32 @@ public class MainJFrame extends javax.swing.JFrame {
                     break;
                 }
             }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(MainJFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(MainJFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(MainJFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
+        } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | javax.swing.UnsupportedLookAndFeelException ex) {
             java.util.logging.Logger.getLogger(MainJFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
+        
+        //</editor-fold>
 
         /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new MainJFrame().setVisible(true);
-            }
+        java.awt.EventQueue.invokeLater(() -> {
+            new MainJFrame().setVisible(true);
         });
     }
 
-    private javax.swing.DefaultListModel<String> listModel;
+    private final javax.swing.DefaultListModel<String> listModel;
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTextField amountTextField;
     private javax.swing.JButton clearButton;
-    private javax.swing.JSpinner countSpinner;
     private javax.swing.JFileChooser fileChooser;
     private javax.swing.JButton fileInputButton;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JList<String> logList;
     private javax.swing.JTextField numbersTextField;
     private javax.swing.JButton randomButton;
-    private javax.swing.JButton saveButton;
+    private javax.swing.JButton saveAllButton;
     private javax.swing.JButton startButton;
     // End of variables declaration//GEN-END:variables
 }
